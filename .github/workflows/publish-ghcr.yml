@@ -15,3 +15,8 @@ jobs:
                 docker login --username bindudokala --password ${{secrets.ACCESS_TOKEN}} ghcr.io
                 docker build -t ghcr.io/bindudokala/arithmetic-service:latest --file Dockerfile .
                 docker push ghcr.io/bindudokala/arithmetic-service:latest
+            - name: Publish the image to azure container registry
+              run: |
+                docker login --username practicum16bdokala --password ${{secrets.AZURE_CONTAINER_REGISTRY}} practicum16bdokala.azurecr.io
+                docker tag ghcr.io/bindudokala/arithmetic-service:latest practicum16bdokala.azurecr.io/arithmetic-service:latest
+                docker push practicum16bdokala.azurecr.io/arithmetic-service:latest
